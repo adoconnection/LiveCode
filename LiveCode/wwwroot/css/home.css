@@ -1,0 +1,13 @@
+﻿body
+{
+    background-color: #ffc357;
+    padding-top: 8%;
+    display: flex;
+    justify-content: center;
+}
+
+.title
+{
+    font-size: 156px;
+    font-weight: 100;
+}

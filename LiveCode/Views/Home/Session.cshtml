@@ -1,0 +1,27 @@
+﻿@{
+    ViewData["Title"] = "Session";
+    Layout = null;
+}
+<html>
+<head>
+
+</head>
+<body>
+
+    <script>
+        SESSION_ID = '@this.ViewBag.SessionId';
+    </script>
+
+    <div id="editor" style="position: absolute; top: 0; right: 0; bottom: 0; left: 0;">
+
+    </div>
+
+
+    <script src="~/js/Ace/ace.js"></script>
+    <script src="~/js/Ace/theme-textmate.js"></script>
+    <script src="~/js/Ace/mode-csharp.js"></script>
+    <script src="~/js/Ace/theme-github.js"></script>
+    <script src="~/js/signalr.js"></script>
+    <script src="~/js/session.js"></script>
+</body>
+</html>

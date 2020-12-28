@@ -1,0 +1,9 @@
+
+{
+    "region" : "us-east-1",
+    "profile" : "Aclor-Cli",
+    "configuration" : "Release",
+    "image-tag"     : "livecode:v2",
+    "docker-build-working-dir" : "",
+    "vstoolkit-deployment-mode" : "PushOnly"
+}
