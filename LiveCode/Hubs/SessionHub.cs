@@ -21,6 +21,36 @@ namespace LiveCode.Hubs
             MembershipIndex.TryAdd(Context.ConnectionId, sessionId);
 
             await Clients.Client(Context.ConnectionId).SendAsync("ReceiveContent", SessionContent.GetOrAdd(sessionId, ""), 0, 0);
+
+            foreach (string connection in Sessions[sessionId])
+            {
+                if (connection == Context.ConnectionId)
+                {
+                    continue;
+                }
+
+                await Clients.Client(connection).SendAsync("Connected", Context.ConnectionId);
+            }
+        }
+
+        public override Task OnDisconnectedAsync(Exception exception)
+        {
+            if (!MembershipIndex.TryGetValue(Context.ConnectionId, out Guid session))
+            {
+                return base.OnDisconnectedAsync(exception);
+            }
+
+            foreach (string connection in Sessions[session])
+            {
+                if (connection == Context.ConnectionId)
+                {
+                    continue;
+                }
+
+                Clients.Client(connection).SendAsync("Disconnected", Context.ConnectionId);
+            }
+
+            return base.OnDisconnectedAsync(exception);
         }
 
         public async Task UpdateContent(string content, int row, int pos)
@@ -58,6 +88,24 @@ namespace LiveCode.Hubs
                 }
 
                 await Clients.Client(connection).SendAsync("ReceiveCursor", row, pos);
+            }
+        }
+
+        public async Task UpdatePointer(int x, int y)
+        {
+            if (!MembershipIndex.TryGetValue(Context.ConnectionId, out Guid session))
+            {
+                return;
+            }
+
+            foreach (string connection in Sessions[session])
+            {
+                if (connection == Context.ConnectionId)
+                {
+                    continue;
+                }
+
+                await Clients.Client(connection).SendAsync("ReceivePointer", Context.ConnectionId, x, y);
             }
         }
 

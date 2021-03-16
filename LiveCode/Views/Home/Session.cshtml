@@ -7,6 +7,22 @@
 
 </head>
 <body>
+    <style>
+
+        html, body
+        {
+            overflow: hidden;
+        }
+
+        .pointer
+        {
+            width: 19px;
+            height: 32px;
+            position: absolute;
+            background-image: url('/css/cursor.png');
+            z-index: 100;
+        }
+    </style>
 
     <script>
         SESSION_ID = '@this.ViewBag.SessionId';
@@ -15,7 +31,6 @@
     <div id="editor" style="position: absolute; top: 0; right: 0; bottom: 0; left: 0;">
 
     </div>
-
 
     <script src="~/js/Ace/ace.js"></script>
     <script src="~/js/Ace/theme-textmate.js"></script>
